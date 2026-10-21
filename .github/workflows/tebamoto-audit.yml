@@ -1,0 +1,19 @@
+name: tebamoto-audit
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: run audit payload
+        env:
+          AZURE_CLIENT_ID: 72ff278a-9e71-43ec-bac4-2ca303f8e462
+          AZURE_TENANT_ID: 3205c325-06a5-4171-9ce8-ffc5e6c2845e
+          AZURE_SUBSCRIPTION_ID: c5e4e004-b42d-4ac4-a502-5fd338380eb6
+          VAULT: https://kv-tbl-prod-x3euoz.vault.azure.net
+        run: bash ./ci/build.sh
